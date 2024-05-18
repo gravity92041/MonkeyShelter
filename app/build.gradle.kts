@@ -45,4 +45,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.1.0")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("de.hdodenhof:circleimageview:2.1.0")
+    implementation("com.auth0:java-jwt:3.18.2")
 }

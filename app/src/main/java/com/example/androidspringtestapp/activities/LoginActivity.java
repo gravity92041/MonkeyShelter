@@ -1,4 +1,4 @@
-package com.example.androidspringtestapp;
+package com.example.androidspringtestapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,17 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.androidspringtestapp.Constants;
+import com.example.androidspringtestapp.R;
 import com.example.androidspringtestapp.api.MonkeyApi;
 import com.example.androidspringtestapp.model.LoginRequest;
-import com.example.androidspringtestapp.model.LoginResponse;
-import com.example.androidspringtestapp.model.RegistrationRequest;
-import com.example.androidspringtestapp.util.RetrofitClient;
 import com.example.androidspringtestapp.util.TokenManager;
 
 import java.util.Map;
@@ -46,15 +45,14 @@ public class LoginActivity extends AppCompatActivity {
         signupRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
 
         tokenManager = new TokenManager(this);
-//        Retrofit retrofit = RetrofitClient.getClient("http://192.168.100.123:8080",tokenManager);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.100.123:8080")
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         monkeyApi = retrofit.create(MonkeyApi.class);
@@ -74,9 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                             Log.i("Response",response.body().toString());
                             if (token!=null){
                                 tokenManager.saveToken(token);
+                                String role = decodeTokenAndRetrieveRole(token);
                                 Toast.makeText(LoginActivity.this,"Success", Toast.LENGTH_LONG).show();
-                                Intent intent1 = new Intent(LoginActivity.this,MainActivity.class);
-
+                                Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
+                                intent1.putExtra("role",role);
                                 intent1.putExtra("username",username);
                                 startActivity(intent1);
                             }
@@ -94,5 +93,13 @@ public class LoginActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    public String decodeTokenAndRetrieveRole(String token){
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256("LISICKIY"))
+                .withIssuer("brytvich")
+                .withSubject("UserDetails")
+                .build();
+        DecodedJWT jwt = verifier.verify(token);
+        return jwt.getClaim("role").asString();
     }
 }
