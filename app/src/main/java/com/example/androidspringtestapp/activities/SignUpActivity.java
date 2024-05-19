@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText usernameEditText,passwordEditText,birthYearEditText;
     Button registerButton;
     MonkeyApi monkeyApi;
+    TextView loginRedirectText;
     TokenManager tokenManager;
 
     @Override
@@ -36,7 +38,15 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.signup_password);
         birthYearEditText = findViewById(R.id.signup_birthYear);
         registerButton=findViewById(R.id.signup_button);
-
+        loginRedirectText = findViewById(R.id.loginRedirectText);
+        loginRedirectText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
