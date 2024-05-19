@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     public String decodeTokenAndRetrieveRole(String token){
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256("LISICKIY"))
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(Constants.SECRET))
                 .withIssuer("brytvich")
                 .withSubject("UserDetails")
                 .build();
