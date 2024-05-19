@@ -33,10 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username").toString();
-        String role = intent.getStringExtra("role");
-        Log.i("role", role);
+
         setContentView(R.layout.activity_main);
 
         searchView = findViewById(R.id.searchView);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/background"
+    android:background="@drawable/backgroundblue"
     tools:context=".activities.LoginActivity">
 
     <androidx.cardview.widget.CardView
@@ -22,7 +22,7 @@
             android:orientation="vertical"
             android:layout_gravity="center_horizontal"
             android:padding="24dp"
-            android:background="@drawable/lavender_border">
+            android:background="@drawable/bluevender_border">
 
             <TextView
                 android:layout_width="match_parent"
@@ -31,14 +31,14 @@
                 android:textSize="36sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:textColor="@color/lavender"/>
+                android:textColor="@color/bluevenderLight"/>
 
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/login_username"
-                android:background="@drawable/lavender_border"
+                android:background="@drawable/bluevender_border"
                 android:layout_marginTop="40dp"
                 android:drawableLeft="@drawable/ic_username"
                 android:padding="8dp"
@@ -51,21 +51,24 @@
                 android:layout_height="50dp"
                 android:id="@+id/login_password"
                 android:inputType="textPassword"
-                android:background="@drawable/lavender_border"
+                android:background="@drawable/bluevender_border"
                 android:layout_marginTop="40dp"
                 android:drawableLeft="@drawable/ic_password"
                 android:padding="8dp"
                 android:drawablePadding="8dp"
                 android:hint="Пароль"
                 android:textColor="@color/black"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Войти"
+                android:backgroundTint="@color/bluevenderLight"
                 android:id="@+id/login_button"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
                 app:cornerRadius = "20dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,7 +78,7 @@
                 android:padding="8dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:textColor="@color/lavender"/>
+                android:textColor="@color/bluevenderLight"/>
 
 
         </LinearLayout>

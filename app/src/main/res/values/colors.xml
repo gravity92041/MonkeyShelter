@@ -5,4 +5,10 @@
     <color name="background">#91C4ED</color>
     <color name="main">#BFDEF6</color>
     <color name="lavender">#8692f7</color>
+    <color name="card_background">#ffff</color>
+    <color name="text_color">#1b1b1b</color>
+    <color name="text_secondary_color">#44464e</color>
+    <color name="bluevenderDark">#1A237E</color>
+    <color name="bluevenderLight">#35C1CE</color>
+    <color name="bluevenderMedium">#4958DA</color>
 </resources>

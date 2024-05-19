@@ -74,10 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                                 tokenManager.saveToken(token);
                                 String role = decodeTokenAndRetrieveRole(token);
                                 Toast.makeText(LoginActivity.this,"Success", Toast.LENGTH_LONG).show();
-                                Intent intent1 = new Intent(LoginActivity.this, MainActivity.class);
+                                Intent intent1 = new Intent(LoginActivity.this, MenuActivity.class);
                                 intent1.putExtra("role",role);
                                 intent1.putExtra("username",username);
                                 startActivity(intent1);
+                                finish();
                             }
                             else {
                                 Log.i("Token","MISSING");
