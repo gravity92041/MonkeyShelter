@@ -7,7 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AuthInterceptor implements Interceptor {
-    private TokenManager tokenManager;
+    private final TokenManager tokenManager;
 
     public AuthInterceptor(TokenManager tokenManager) {
         this.tokenManager = tokenManager;

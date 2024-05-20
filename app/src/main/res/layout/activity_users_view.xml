@@ -7,9 +7,9 @@
     android:background="@color/background"
     android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context="com.example.androidspringtestapp.activities.MainActivity">
+    tools:context="com.example.androidspringtestapp.activities.UsersViewActivity">
     <SearchView
-        android:id="@+id/monkeySearchView"
+        android:id="@+id/usersSearchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -19,7 +19,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/monkeyList"
+        android:id="@+id/usersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 

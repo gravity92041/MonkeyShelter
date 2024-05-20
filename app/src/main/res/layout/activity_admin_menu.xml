@@ -20,7 +20,8 @@
             android:id="@+id/toolbar"
             android:elevation="0dp"
             app:titleTextColor="@color/text_color"
-            app:title="@string/app_name"
+            app:title="AdminPanel"
+            app:titleCentered="true"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"/>
     </com.google.android.material.appbar.AppBarLayout>
@@ -34,12 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/adminViewCard"
+                android:id="@+id/adminPeopleViewCard"
                 app:cardBackgroundColor="@color/card_background"
                 app:strokeWidth="0dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="175dp"
                 app:cardCornerRadius="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -52,7 +53,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:textSize="17sp"
-                        android:text="AdminPanel"
+                        android:text="ViewPeople"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -60,7 +61,7 @@
 
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/monkeyViewCard"
+                android:id="@+id/adminMonkeyViewCard"
                 app:cardBackgroundColor="@color/card_background"
                 app:strokeWidth="0dp"
                 android:layout_marginEnd="25dp"
@@ -68,25 +69,9 @@
                 android:layout_marginTop="30dp"
                 app:cardCornerRadius="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp">
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/text_color"
-                        android:textSize="17sp"
-                        android:text="View Monkeys"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+                android:layout_height="wrap_content"/>
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/userProfileCard"
+                android:id="@+id/adminProfileCard"
                 app:cardBackgroundColor="@color/card_background"
                 app:strokeWidth="0dp"
                 android:layout_marginEnd="25dp"
@@ -120,23 +105,7 @@
                 android:layout_marginTop="25dp"
                 app:cardCornerRadius="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp">
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/text_color"
-                        android:textSize="17sp"
-                        android:text="Exit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

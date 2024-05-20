@@ -6,6 +6,7 @@ public class Person {
     private String password;
     private int birthYear;
     private String role;
+    private String monkey;
 
     // Getters and setters
     public int getId() {
@@ -46,6 +47,14 @@ public class Person {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getMonkey() {
+        return monkey;
+    }
+
+    public void setMonkey(String monkey) {
+        this.monkey = monkey;
     }
 }
 

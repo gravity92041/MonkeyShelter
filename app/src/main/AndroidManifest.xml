@@ -16,6 +16,12 @@
         android:theme="@style/Theme.AndroidSpringTestApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.UsersViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminMenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.MenuActivity"
             android:exported="false" />
         <activity

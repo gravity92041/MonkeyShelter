@@ -1,21 +1,23 @@
 package com.example.androidspringtestapp.activities;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.SearchView;
+
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.SearchView;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidspringtestapp.Constants;
 import com.example.androidspringtestapp.R;
-import com.example.androidspringtestapp.api.MonkeyApi;
-import com.example.androidspringtestapp.model.Monkey;
-import com.example.androidspringtestapp.util.MonkeyAdapter;
+import com.example.androidspringtestapp.api.UsersApi;
+import com.example.androidspringtestapp.model.Person;
+import com.example.androidspringtestapp.util.PeopleAdapter;
+import com.example.androidspringtestapp.util.RetrofitClient;
+import com.example.androidspringtestapp.util.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,52 +26,43 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class UsersViewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private MonkeyAdapter monkeyAdapter;
+    private PeopleAdapter peopleAdapter;
     private SearchView searchView;
-    List<Monkey> monkeys;
+    private TokenManager tokenManager;
+    List<Person> people;
 
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-
-        searchView = findViewById(R.id.monkeySearchView);
+        setContentView(R.layout.activity_users_view);
+        recyclerView = findViewById(R.id.usersList);
+        searchView = findViewById(R.id.usersSearchView);
         searchView.clearFocus();
 
-        recyclerView = findViewById(R.id.monkeyList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        MonkeyApi monkeyApi = retrofit.create(MonkeyApi.class);
-        Call<List<Monkey>> call = monkeyApi.getMonkeys();
-        call.enqueue(new Callback<List<Monkey>>() {
+        Retrofit retrofit = RetrofitClient.getClient(Constants.BASE_URL,tokenManager);
+        UsersApi usersApi = retrofit.create(UsersApi.class);
+        Call<List<Person>> call = usersApi.getUsers();
+        call.enqueue(new Callback<List<Person>>() {
             @Override
-            public void onResponse(Call<List<Monkey>> call, Response<List<Monkey>> response) {
+            public void onResponse(Call<List<Person>> call, Response<List<Person>> response) {
                 if (!response.isSuccessful()) {
-                    new AlertDialog.Builder(MainActivity.this)
+                    new AlertDialog.Builder(UsersViewActivity.this)
                             .setMessage("Ошибка из он респонс: ")
                             .setPositiveButton("OK", null)
                             .show();
                 }
-                monkeys = response.body();
-
-                monkeyAdapter = new MonkeyAdapter(MainActivity.this, monkeys);
-                recyclerView.setAdapter(monkeyAdapter);
-
+                people = response.body();
+                peopleAdapter = new PeopleAdapter(UsersViewActivity.this,people);
+                recyclerView.setAdapter(peopleAdapter);
             }
 
             @Override
-            public void onFailure(Call<List<Monkey>> call, Throwable t) {
+            public void onFailure(Call<List<Person>> call, Throwable t) {
                 Log.e("Api error", t.getMessage(), t);
             }
         });
@@ -85,15 +78,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
     public void filterList(String newText){
-        List<Monkey> filteredList = new ArrayList<>();
-        for (Monkey m:monkeys){
-            if (m.getName().toLowerCase().contains(newText.toLowerCase())){
-                filteredList.add(m);
+        List<Person> filteredList = new ArrayList<>();
+        for (Person p:people){
+            if (p.getUsername().toLowerCase().contains(newText.toLowerCase())){
+                filteredList.add(p);
             }
         }
-        monkeyAdapter.setFilteredList(filteredList);
+        peopleAdapter.setFilteredList(filteredList);
     }
 }

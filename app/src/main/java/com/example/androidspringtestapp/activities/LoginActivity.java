@@ -32,7 +32,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
     EditText usernameEditText,passwordEditText;
     MonkeyApi monkeyApi;
-    private TokenManager tokenManager;
     TextView signupRedirectText;
 
     @Override
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        tokenManager = new TokenManager(this);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -71,12 +70,13 @@ public class LoginActivity extends AppCompatActivity {
                             String token = response.body().get("jwt-token");
                             Log.i("Response",response.body().toString());
                             if (token!=null){
-                                tokenManager.saveToken(token);
+
                                 String role = decodeTokenAndRetrieveRole(token);
                                 Toast.makeText(LoginActivity.this,"Success", Toast.LENGTH_LONG).show();
                                 Intent intent1 = new Intent(LoginActivity.this, MenuActivity.class);
                                 intent1.putExtra("role",role);
                                 intent1.putExtra("username",username);
+                                intent1.putExtra("token",token);
                                 startActivity(intent1);
                                 finish();
                             }
