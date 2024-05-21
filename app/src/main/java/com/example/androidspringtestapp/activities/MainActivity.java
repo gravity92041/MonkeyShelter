@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private MonkeyAdapter monkeyAdapter;
     private SearchView searchView;
     List<Monkey> monkeys;
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
     public void filterList(String newText){
         List<Monkey> filteredList = new ArrayList<>();
         for (Monkey m:monkeys){
