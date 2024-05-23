@@ -46,4 +46,5 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("de.hdodenhof:circleimageview:2.1.0")
     implementation("com.auth0:java-jwt:3.18.2")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
 }

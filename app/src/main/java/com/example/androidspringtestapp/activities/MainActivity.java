@@ -16,6 +16,8 @@ import com.example.androidspringtestapp.R;
 import com.example.androidspringtestapp.api.MonkeyApi;
 import com.example.androidspringtestapp.model.Monkey;
 import com.example.androidspringtestapp.util.MonkeyAdapter;
+import com.example.androidspringtestapp.util.RetrofitClient;
+import com.example.androidspringtestapp.util.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MonkeyAdapter monkeyAdapter;
     private SearchView searchView;
+    private TokenManager tokenManager;
     List<Monkey> monkeys;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,10 +47,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.monkeyList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit = RetrofitClient.getClient(Constants.BASE_URL,tokenManager);
         MonkeyApi monkeyApi = retrofit.create(MonkeyApi.class);
         Call<List<Monkey>> call = monkeyApi.getMonkeys();
         call.enqueue(new Callback<List<Monkey>>() {
@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
 
                 monkeyAdapter = new MonkeyAdapter(MainActivity.this, monkeys);
                 recyclerView.setAdapter(monkeyAdapter);
+                monkeyAdapter.setOnMonkeyClickListener(new MonkeyAdapter.OnMonkeyClickListener() {
+                    @Override
+                    public void onMonkeyClick(int monkeyId) {
+                        Intent intent = new Intent(MainActivity.this, MonkeyDetailActivity.class);
+                        intent.putExtra("monkeyId",String.valueOf(monkeyId));
+                        Log.i("FWEFHJSAHFOESOAFSERHOOOOOOOOSG", String.valueOf(monkeyId));
+                        startActivity(intent);
+                    }
+                });
 
             }
 

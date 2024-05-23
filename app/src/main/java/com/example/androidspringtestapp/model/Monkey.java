@@ -2,8 +2,8 @@ package com.example.androidspringtestapp.model;
 
 public class Monkey {
     private int id;
-    private int age;
     private String name;
+    private int age;
     private Person owner;
     private String image;
 

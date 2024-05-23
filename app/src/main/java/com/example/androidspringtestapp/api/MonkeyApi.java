@@ -13,14 +13,17 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface MonkeyApi {
     @GET("monkey")
     Call<List<Monkey>> getMonkeys();
     @POST("auth/registration")
     Call<Void> registerUser(@Body RegistrationRequest registrationRequest);
-//    @POST("auth/login")
-//    Call<LoginResponse> signIn(@Body LoginRequest loginRequest);
+
     @POST("auth/login")
     Call<Map<String,String>> signIn(@Body LoginRequest loginRequest);
+
+    @GET("monkey/{id}")
+    Call<Monkey> getMonkey(@Path("id")int id);
 }

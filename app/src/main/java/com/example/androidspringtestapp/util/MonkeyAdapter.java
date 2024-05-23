@@ -31,13 +31,13 @@ public class MonkeyAdapter extends RecyclerView.Adapter<MonkeyAdapter.MonkeyView
         this.monkeys=filteredList;
         notifyDataSetChanged();
     }
-//    public interface OnMonkeyClickListener{
-//        void onMonkeyClick(String monkeyId);
-//    }
-//    private OnMonkeyClickListener listener;
-//    public void setOnMonkeyClickListener(OnMonkeyClickListener listener){
-//        this.listener=listener;
-//    }
+    public interface OnMonkeyClickListener{
+        void onMonkeyClick(int monkeyId);
+    }
+    private OnMonkeyClickListener listener;
+    public void setOnMonkeyClickListener(OnMonkeyClickListener listener){
+        this.listener=listener;
+    }
 
     @NonNull
     @Override
@@ -51,6 +51,14 @@ public class MonkeyAdapter extends RecyclerView.Adapter<MonkeyAdapter.MonkeyView
         holder.nameTextView.setText(monkey.getName());
         holder.houseTextView.setText("Обезьянке "+monkey.getAge()+" годиков");
         Picasso.get().load(monkey.getImage()).into(holder.imageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener!=null){
+                    listener.onMonkeyClick(monkey.getId());
+                }
+            }
+        });
     }
     @Override
     public int getItemCount(){
