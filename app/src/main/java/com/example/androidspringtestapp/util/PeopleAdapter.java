@@ -40,7 +40,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
         Person person = people.get(position);
         holder.userNameTextView.setText(person.getUsername());
         holder.roleTextView.setText(person.getRole());
-        Picasso.get().load("https://i.pinimg.com/564x/04/5c/64/045c64acd15b7178f670758807a62753.jpg").into(holder.userImageView);
+        Picasso.get().load("https://qph.cf2.quoracdn.net/main-qimg-3e1e3a2739043f3f6d9d24bfac08207b-lq").into(holder.userImageView);
     }
     @Override
     public int getItemCount(){

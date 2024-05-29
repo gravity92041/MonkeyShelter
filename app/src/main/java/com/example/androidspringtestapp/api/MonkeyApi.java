@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -26,4 +28,8 @@ public interface MonkeyApi {
 
     @GET("monkey/{id}")
     Call<Monkey> getMonkey(@Path("id")int id);
+    @PATCH("monkey/{id}/removeOwner")
+    Call<Void> removeOwner(@Path("id")int id);
+    @PATCH("monkey/{id}/setOwner")
+    Call<Void> setOwner(@Path("id") int id,@Body RequestBody username);
 }

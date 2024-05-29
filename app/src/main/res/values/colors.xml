@@ -11,4 +11,5 @@
     <color name="bluevenderDark">#1A237E</color>
     <color name="bluevenderLight">#35C1CE</color>
     <color name="bluevenderMedium">#4958DA</color>
+    <color name="delete">#FF0000</color>
 </resources>

@@ -14,6 +14,8 @@
         android:layout_marginTop="10dp"
         android:padding="15dp">
 
+
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,6 +29,34 @@
                 android:orientation="vertical"
                 android:layout_marginTop="0dp"
                 android:padding="15dp">
+                <RelativeLayout
+                    android:id="@+id/adminEditDeleteLL"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:id="@+id/monkeyDeleteFAB"
+                        android:layout_alignParentStart="true"
+                        android:scaleType="center"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/delete"
+                        android:src="@drawable/ic_delete"
+
+                        />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/monkeyEditFAB"
+                        android:scaleType="center"
+                        android:layout_alignParentEnd="true"
+                        android:backgroundTint="@color/bluevenderMedium"
+                        android:src="@drawable/ic_edit"
+
+                        />
+                </RelativeLayout>
+
+
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/monkeyDetailImageView"
@@ -69,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="15dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -241,13 +272,19 @@
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp"/>
+            android:id="@+id/TakeReleaseMonkey"
+            android:text="Забрать себе"
+            android:layout_marginTop="10dp"/>
+
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="30dp"-->
+<!--            app:cardCornerRadius="10dp"/>-->
 
 
     </LinearLayout>

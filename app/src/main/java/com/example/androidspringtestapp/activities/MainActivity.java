@@ -38,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intentFrom = getIntent();
+        String username = intentFrom.getStringExtra("username");
+        String role = intentFrom.getStringExtra("role");
         setContentView(R.layout.activity_main);
 
         searchView = findViewById(R.id.monkeySearchView);
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                             .show();
                 }
                 monkeys = response.body();
-
                 monkeyAdapter = new MonkeyAdapter(MainActivity.this, monkeys);
                 recyclerView.setAdapter(monkeyAdapter);
                 monkeyAdapter.setOnMonkeyClickListener(new MonkeyAdapter.OnMonkeyClickListener() {
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onMonkeyClick(int monkeyId) {
                         Intent intent = new Intent(MainActivity.this, MonkeyDetailActivity.class);
                         intent.putExtra("monkeyId",String.valueOf(monkeyId));
+                        intent.putExtra("username",username);
+                        intent.putExtra("role",role);
                         Log.i("FWEFHJSAHFOESOAFSERHOOOOOOOOSG", String.valueOf(monkeyId));
                         startActivity(intent);
                     }

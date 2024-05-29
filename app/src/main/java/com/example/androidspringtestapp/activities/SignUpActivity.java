@@ -58,24 +58,37 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 String birthYear= birthYearEditText.getText().toString().trim();
-                RegistrationRequest registrationRequest = new RegistrationRequest(username,password,birthYear);
-                monkeyApi.registerUser(registrationRequest).enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()){
-                            Toast.makeText(SignUpActivity.this,"Success", Toast.LENGTH_LONG).show();
-                            Intent intent1 = new Intent(SignUpActivity.this, LoginActivity.class);
-                            startActivity(intent1);
-                            finish();
+                if (username.isEmpty()){
+                    usernameEditText.setError("Логин не может быть пустым");
+                    usernameEditText.requestFocus();
+                }
+                else if (password.isEmpty()){
+                    passwordEditText.setError("Пароль не может быть пустым");
+                    passwordEditText.requestFocus();
+                }
+                else if (birthYear.isEmpty()){
+                    birthYearEditText.setError("Год рождения не может быть пустым");
+                    birthYearEditText.requestFocus();
+                }
+                else {
+                    RegistrationRequest registrationRequest = new RegistrationRequest(username, password, birthYear);
+                    monkeyApi.registerUser(registrationRequest).enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_LONG).show();
+                                Intent intent1 = new Intent(SignUpActivity.this, LoginActivity.class);
+                                startActivity(intent1);
+                                finish();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e("API ERROR",t.getMessage(),t);
-                    }
-                });
-
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+                            Log.e("API ERROR", t.getMessage(), t);
+                        }
+                    });
+                }
             }
         });
     }

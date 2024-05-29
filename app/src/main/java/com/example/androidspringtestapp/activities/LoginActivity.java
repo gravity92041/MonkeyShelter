@@ -61,37 +61,44 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
-                LoginRequest loginRequest = new LoginRequest(username,password);
+                if (username.isEmpty()){
+                    usernameEditText.setError("Логин не может быть пустым");
+                    usernameEditText.requestFocus();
+                } else if (password.isEmpty()) {
+                    passwordEditText.setError("Пароль не может быть пустым");
+                    passwordEditText.requestFocus();
+                }
+                else {
+                    LoginRequest loginRequest = new LoginRequest(username, password);
+                    monkeyApi.signIn(loginRequest).enqueue(new Callback<Map<String, String>>() {
+                        @Override
+                        public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                String token = response.body().get("jwt-token");
+                                Log.i("Response", response.body().toString());
+                                if (token != null) {
 
-                monkeyApi.signIn(loginRequest).enqueue(new Callback<Map<String,String>>() {
-                    @Override
-                    public void onResponse(Call<Map<String,String>>call, Response<Map<String,String>> response) {
-                        if (response.isSuccessful() && response.body()!=null){
-                            String token = response.body().get("jwt-token");
-                            Log.i("Response",response.body().toString());
-                            if (token!=null){
+                                    String role = decodeTokenAndRetrieveRole(token);
+                                    Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
+                                    Intent intent1 = new Intent(LoginActivity.this, MenuActivity.class);
+                                    intent1.putExtra("role", role);
+                                    intent1.putExtra("username", username);
+                                    intent1.putExtra("token", token);
+                                    startActivity(intent1);
+                                    finish();
+                                } else {
+                                    Log.i("Token", "MISSING");
+                                }
 
-                                String role = decodeTokenAndRetrieveRole(token);
-                                Toast.makeText(LoginActivity.this,"Success", Toast.LENGTH_LONG).show();
-                                Intent intent1 = new Intent(LoginActivity.this, MenuActivity.class);
-                                intent1.putExtra("role",role);
-                                intent1.putExtra("username",username);
-                                intent1.putExtra("token",token);
-                                startActivity(intent1);
-                                finish();
                             }
-                            else {
-                                Log.i("Token","MISSING");
-                            }
-
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Map<String,String>> call, Throwable t) {
-                        Log.e("API ERROR",t.getMessage(),t);
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Map<String, String>> call, Throwable t) {
+                            Log.e("API ERROR", t.getMessage(), t);
+                        }
+                    });
+                }
             }
         });
     }
