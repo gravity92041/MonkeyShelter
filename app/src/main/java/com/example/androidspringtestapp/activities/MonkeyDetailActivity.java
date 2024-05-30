@@ -1,5 +1,8 @@
 package com.example.androidspringtestapp.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -57,12 +64,14 @@ public class MonkeyDetailActivity extends AppCompatActivity {
         adminEditDeleteLL = findViewById(R.id.adminEditDeleteLL);
         editFAB = findViewById(R.id.monkeyEditFAB);
         deleteFAB = findViewById(R.id.monkeyDeleteFAB);
+        MonkeyApi monkeyApi = retrofit.create(MonkeyApi.class);
         if (role.equals("ROLE_USER")){
             adminEditDeleteLL.setVisibility(View.INVISIBLE);
             editFAB.hide();
             deleteFAB.hide();
         }
-        MonkeyApi monkeyApi = retrofit.create(MonkeyApi.class);
+
+
 
         Call<Monkey> call = monkeyApi.getMonkey(MonkeyId);
         call.enqueue(new Callback<Monkey>() {
@@ -125,9 +134,56 @@ public class MonkeyDetailActivity extends AppCompatActivity {
                         monkeyDetailOwner.setText("Обезьяна у пользователя "+monkey.getOwner().getUsername());
                         takeReleaseMonkey.setVisibility(View.INVISIBLE);
                     }
+
                     monkeyDetailNameTextView.setText(monkey.getName());
                     monkeyDetailAgeTextView.setText(String.valueOf(monkey.getAge()));
                     Picasso.get().load(monkey.getImage()).into(monkeyDetailImageView);
+
+                    deleteFAB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MonkeyDetailActivity.this);
+                            builder.setTitle("Удаление обезьяны");
+                            builder.setMessage("Вы точно хотите удалить обезьяну?");
+                            builder.setPositiveButton("Подтвердить", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Call<Void> call = monkeyApi.deleteMonkey(monkey.getId());
+                                    call.enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            Toast.makeText(MonkeyDetailActivity.this,"Обезьянка удалена успешно",Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(MonkeyDetailActivity.this,MainActivity.class));
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+                                            Log.e("Api error",t.getMessage());
+                                        }
+                                    });
+                                }
+                            });
+                            builder.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+
+                    });
+                    editFAB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(MonkeyDetailActivity.this,MonkeyDetailEditActivity.class);
+                            intent.putExtra("monkeyId",String.valueOf(monkey.getId()));
+                            intent.putExtra("name",monkey.getName());
+                            intent.putExtra("age",String.valueOf(monkey.getAge()));
+                            MonkeyDetailEditActivityResultLauncher.launch(intent);
+                        }
+                    });
                 }
 
 
@@ -139,4 +195,23 @@ public class MonkeyDetailActivity extends AppCompatActivity {
             }
         });
     }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode==1488&&resultCode==RESULT_OK){
+//            this.recreate();
+//        }
+//    }
+    ActivityResultLauncher<Intent> MonkeyDetailEditActivityResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult o) {
+                if (o.getResultCode()== Activity.RESULT_OK){
+                    Intent data = o.getData();
+                    recreate();
+                }
+            }
+        }
+);
 }

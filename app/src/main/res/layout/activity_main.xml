@@ -17,7 +17,6 @@
         android:queryHint="Поиск по имени...."
         android:iconifiedByDefault="false"
         />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/monkeyList"
         android:layout_width="match_parent"

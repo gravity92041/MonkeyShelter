@@ -7,6 +7,15 @@ public class Monkey {
     private Person owner;
     private String image;
 
+    public Monkey() {
+
+    }
+
+    public Monkey(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public int getId() {
         return id;
     }

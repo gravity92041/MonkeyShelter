@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("role",role);
                         Log.i("FWEFHJSAHFOESOAFSERHOOOOOOOOSG", String.valueOf(monkeyId));
                         startActivity(intent);
+
                     }
                 });
 

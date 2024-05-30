@@ -77,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                                 String token = response.body().get("jwt-token");
                                 Log.i("Response", response.body().toString());
                                 if (token != null) {
-
                                     String role = decodeTokenAndRetrieveRole(token);
                                     Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_LONG).show();
                                     Intent intent1 = new Intent(LoginActivity.this, MenuActivity.class);
