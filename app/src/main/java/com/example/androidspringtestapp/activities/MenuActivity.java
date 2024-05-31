@@ -22,7 +22,7 @@ import com.google.android.material.card.MaterialCardView;
 import retrofit2.Retrofit;
 
 public class MenuActivity extends AppCompatActivity {
-    MaterialCardView logout,monkeyViewCard,profileCard,adminCard;
+    MaterialCardView logout,monkeyViewCard,profileCard,adminPeopleViewCard;
 
 
     @SuppressLint("MissingInflatedId")
@@ -31,7 +31,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         logout = findViewById(R.id.logout);
-        adminCard = findViewById(R.id.adminViewCard);
+        adminPeopleViewCard = findViewById(R.id.adminPeopleViewCard);
         monkeyViewCard = findViewById(R.id.monkeyViewCard);
         profileCard = findViewById(R.id.userProfileCard);
         Intent intent = getIntent();
@@ -43,15 +43,15 @@ public class MenuActivity extends AppCompatActivity {
         Retrofit retrofitClient = RetrofitClient.getClient(Constants.BASE_URL,tokenManager);
         Log.i("role", role);
         if (role.equals("ROLE_ADMIN")||role.equals("ROLE_MAIN")){
-            adminCard.setVisibility(View.VISIBLE);
+            adminPeopleViewCard.setVisibility(View.VISIBLE);
         }
         else {
-            adminCard.setVisibility(View.INVISIBLE);
+            adminPeopleViewCard.setVisibility(View.INVISIBLE);
         }
-        adminCard.setOnClickListener(new View.OnClickListener() {
+        adminPeopleViewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(MenuActivity.this, AdminMenuActivity.class);
+                Intent intent1 = new Intent(MenuActivity.this, UsersViewActivity.class);
                 startActivity(intent1);
             }
         });

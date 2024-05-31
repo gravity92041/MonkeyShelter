@@ -1,11 +1,16 @@
 package com.example.androidspringtestapp.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.SearchView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -72,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("username",username);
                         intent.putExtra("role",role);
                         Log.i("FWEFHJSAHFOESOAFSERHOOOOOOOOSG", String.valueOf(monkeyId));
-                        startActivity(intent);
+                        MainActivityResultLauncher.launch(intent);
+//                        startActivity(intent);
 
                     }
                 });
@@ -109,4 +115,16 @@ public class MainActivity extends AppCompatActivity {
         }
         monkeyAdapter.setFilteredList(filteredList);
     }
+    ActivityResultLauncher<Intent> MainActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult o) {
+                    if (o.getResultCode()== Activity.RESULT_OK){
+                        Intent data = o.getData();
+                        recreate();
+                    }
+                }
+            }
+    );
 }

@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/adminViewCard"
+                android:id="@+id/adminPeopleViewCard"
                 app:cardBackgroundColor="@color/card_background"
                 app:strokeWidth="0dp"
                 android:layout_marginEnd="25dp"
@@ -52,7 +52,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:textSize="17sp"
-                        android:text="AdminPanel"
+                        android:text="ViewPeople"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

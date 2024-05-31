@@ -50,15 +50,16 @@ public class MonkeyDetailActivity extends AppCompatActivity {
     TextView monkeyDetailNameTextView,monkeyDetailOwner,monkeyDetailAgeTextView;
     RelativeLayout adminEditDeleteLL;
     FloatingActionButton editFAB,deleteFAB;
+    String username,role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_monkey_detail);
         Intent intentFrom = getIntent();
-        String username = intentFrom.getStringExtra("username");
+        username = intentFrom.getStringExtra("username");
         String fromIntent = intentFrom.getStringExtra("monkeyId");
-        String role = intentFrom.getStringExtra("role");
+        role = intentFrom.getStringExtra("role");
         int MonkeyId = Integer.valueOf(fromIntent);
         Retrofit retrofit = RetrofitClient.getClient(Constants.BASE_URL,tokenManager);
         adminEditDeleteLL = findViewById(R.id.adminEditDeleteLL);
@@ -214,4 +215,14 @@ public class MonkeyDetailActivity extends AppCompatActivity {
             }
         }
 );
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MonkeyDetailActivity.this,MainActivity.class);
+        intent.putExtra("username",username);
+        intent.putExtra("role","role");
+        setResult(RESULT_OK);
+        startActivity(intent);
+        finish();
+    }
 }
