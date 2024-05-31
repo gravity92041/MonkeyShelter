@@ -154,7 +154,11 @@ public class MonkeyDetailActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             Toast.makeText(MonkeyDetailActivity.this,"Обезьянка удалена успешно",Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(MonkeyDetailActivity.this,MainActivity.class));
+                                            Intent intent = new Intent(MonkeyDetailActivity.this,MainActivity.class);
+                                            intent.putExtra("username",username);
+                                            intent.putExtra("role",role);
+                                            startActivity(intent);
+                                            finish();;
                                         }
 
                                         @Override
@@ -220,7 +224,7 @@ public class MonkeyDetailActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(MonkeyDetailActivity.this,MainActivity.class);
         intent.putExtra("username",username);
-        intent.putExtra("role","role");
+        intent.putExtra("role",role);
         setResult(RESULT_OK);
         startActivity(intent);
         finish();

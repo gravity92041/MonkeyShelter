@@ -17,6 +17,12 @@
         android:queryHint="Поиск по имени...."
         android:iconifiedByDefault="false"
         />
+    <Button
+        android:id="@+id/addMonkeyBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:text="Добавить обезьяну"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/monkeyList"
         android:layout_width="match_parent"

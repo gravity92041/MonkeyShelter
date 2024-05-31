@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import androidx.activity.result.ActivityResult;
@@ -38,16 +40,22 @@ public class MainActivity extends AppCompatActivity {
     private MonkeyAdapter monkeyAdapter;
     private SearchView searchView;
     private TokenManager tokenManager;
+    Button monkeyAddButton;
     List<Monkey> monkeys;
+    String username,role;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intentFrom = getIntent();
-        String username = intentFrom.getStringExtra("username");
-        String role = intentFrom.getStringExtra("role");
-        setContentView(R.layout.activity_main);
+        username = intentFrom.getStringExtra("username");
+        role = intentFrom.getStringExtra("role");
 
+        setContentView(R.layout.activity_main);
+        monkeyAddButton = findViewById(R.id.addMonkeyBTN);
+        if (role.equals("ROLE_USER")){
+            monkeyAddButton.setVisibility(View.GONE);
+        }
         searchView = findViewById(R.id.monkeySearchView);
         searchView.clearFocus();
 
@@ -102,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        monkeyAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,MonkeyAddActivity.class);
+                intent.putExtra("username",username);
+                intent.putExtra("role",role);
+//                MainActivityResultLauncher.launch(intent);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -127,4 +145,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
     );
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+        intent.putExtra("username",username);
+        intent.putExtra("role",role);
+        startActivity(intent);
+        finish();
+    }
 }

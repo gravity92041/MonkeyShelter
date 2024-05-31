@@ -1,8 +1,8 @@
-package com.example.androidspringtestapp.model;
+package com.example.androidspringtestapp.dto;
 
 public class MonkeyFromAndroid {
-    String name;
-    int age;
+    private String name;
+    private int age;
 
     public MonkeyFromAndroid(String name, int age) {
         this.name = name;

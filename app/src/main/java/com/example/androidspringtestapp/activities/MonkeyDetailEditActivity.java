@@ -8,23 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.androidspringtestapp.Constants;
 import com.example.androidspringtestapp.R;
 import com.example.androidspringtestapp.api.MonkeyApi;
-import com.example.androidspringtestapp.model.Monkey;
-import com.example.androidspringtestapp.model.MonkeyFromAndroid;
+import com.example.androidspringtestapp.dto.MonkeyFromAndroid;
 import com.example.androidspringtestapp.util.RetrofitClient;
 import com.example.androidspringtestapp.util.TokenManager;
 
-import kotlin.jvm.internal.unsafe.MonitorKt;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

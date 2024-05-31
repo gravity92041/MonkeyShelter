@@ -1,14 +1,13 @@
 package com.example.androidspringtestapp.api;
 
+import com.example.androidspringtestapp.dto.MonkeyDTO;
 import com.example.androidspringtestapp.model.LoginRequest;
-import com.example.androidspringtestapp.model.LoginResponse;
 import com.example.androidspringtestapp.model.Monkey;
-import com.example.androidspringtestapp.model.MonkeyFromAndroid;
+import com.example.androidspringtestapp.dto.MonkeyFromAndroid;
 import com.example.androidspringtestapp.model.RegistrationRequest;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -38,4 +37,6 @@ public interface MonkeyApi {
     Call<Void> deleteMonkey(@Path("id") int id);
     @PATCH("admin/{id}/updateMonkeyAndroid")
     Call<Void> updateMonkey(@Path("id") int id, @Body MonkeyFromAndroid monkey);
+    @POST("monkey/add")
+    Call<Void> addMonkey(@Body MonkeyDTO monkeyDTO);
 }
